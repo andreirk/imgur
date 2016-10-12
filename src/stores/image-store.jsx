@@ -1,17 +1,17 @@
 var Reflux = require('reflux');
 var Api = require('../utils/api');
-var Actions = require('../actions');  
+var Actions = require('../actions'); 
 
 module.exports = Reflux.createStore({
     listenables: [Actions],
-    getTopics: function(){
-        return Api.get('topics/defaults')
+    getImages: function (topicId) {
+        Api.get('topics/' + topicId)
             .then(function (data) {
-               this.topics = data.data; 
-               this.trigerChange();
+                this.images = data.data;
+                this.trigerChange();
             }.bind(this));
     },
     trigerChange: function () {
-        this.trigger('change', this.topics)
+        this.trigger('change', this.images)
     }
 })
