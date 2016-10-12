@@ -26,7 +26,7 @@ module.exports = React.createClass({
                 <Link 
                     to="/"   
                     className="navbar-brand">
-                        Imgur Brouser
+                        Imgur Browser
                 </Link>
             <ul className="nav navbar-nav navbar-right">
                 {this.renderTopics()}

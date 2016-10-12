@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 var Actions = require('../actions');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
+var ImagePreview = require('./image-preview');
 
 module.exports = React.createClass({
     mixins: [
@@ -15,12 +16,23 @@ module.exports = React.createClass({
         }
     },
     componentWillMount: function () {
-        Actions.getImages(this.props.params.id)
+        Actions.getImages(this.props.params.id);
     }, 
+    componentWillReceiveProps: function (nexsProps) {
+        Actions.getImages(nexsProps.params.id);
+    },
     render: function () {
-        return <div>
-         
+        return <div className="topic">
+            {this.renderImages()}
         </div>
+    },
+    renderImages: function () {
+        return this.state.images.map(function (image) {
+            return <ImagePreview 
+                key={image.id}
+                {...image}
+                />
+        })
     },
     onChange: function (ev, images) {
         this.setState({
